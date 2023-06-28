@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 	"strings"
-	"terraform-provider-elastic-siem/internal/helpers"
-	"terraform-provider-elastic-siem/internal/provider/transferobjects"
+	"terraform-provider-elastic-siem-detection/internal/helpers"
+	"terraform-provider-elastic-siem-detection/internal/provider/transferobjects"
 
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"

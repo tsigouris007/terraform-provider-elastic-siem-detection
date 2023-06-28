@@ -19,7 +19,7 @@ const (
 
 var (
 	providerConfig = fmt.Sprintf(`
-provider "elastic-siem" {
+provider "elastic-siem-detection" {
   user     = "education"
   password = "test123"
   hostname = "%s"
@@ -30,7 +30,7 @@ provider "elastic-siem" {
 )
 
 var testAccProtoV6ProviderFactories = map[string]func() (tfprotov6.ProviderServer, error){
-	"elastic-siem": providerserver.NewProtocol6WithError(New("test")()),
+	"elastic-siem-detection": providerserver.NewProtocol6WithError(New("test")()),
 }
 
 func testAccPreCheck(t *testing.T) {

@@ -51,8 +51,8 @@ To use it in your terraform:
 terraform {
   required_version = ">= 0.13.0"
   required_providers {
-    elastic-siem = {
-      source = "local/elastic-siem/elastic-siem"
+    elastic-siem-detection = {
+      source = "local/elastic-siem-detection/elastic-siem-detection"
       version = "1.0.0"
     }
   }

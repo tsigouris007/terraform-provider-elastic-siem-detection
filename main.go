@@ -3,9 +3,10 @@ package main
 import (
 	"context"
 	"flag"
-	"github.com/hashicorp/terraform-plugin-framework/providerserver"
 	"log"
-	"terraform-provider-elastic-siem/internal/provider"
+	"terraform-provider-elastic-siem-detection/internal/provider"
+
+	"github.com/hashicorp/terraform-plugin-framework/providerserver"
 )
 
 // Run "go generate" to format example terraform files and generate the docs for the registry/website

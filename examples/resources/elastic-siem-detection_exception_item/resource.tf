@@ -1,4 +1,4 @@
-resource "elastic-siem_exception_item" "my_items" {
+resource "elastic-siem-detection_exception_item" "my_items" {
   exception_item_content = jsonencode(
     {
       "list_id" : "hacker_list",

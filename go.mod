@@ -1,4 +1,4 @@
-module terraform-provider-elastic-siem
+module terraform-provider-elastic-siem-detection
 
 go 1.18
 

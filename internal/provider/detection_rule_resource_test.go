@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 	"strconv"
-	"terraform-provider-elastic-siem/internal/fakeserver"
-	"terraform-provider-elastic-siem/internal/provider/transferobjects"
+	"terraform-provider-elastic-siem-detection/internal/fakeserver"
+	"terraform-provider-elastic-siem-detection/internal/provider/transferobjects"
 	"testing"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"

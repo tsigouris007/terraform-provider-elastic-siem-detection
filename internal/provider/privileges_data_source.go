@@ -3,8 +3,8 @@ package provider
 import (
 	"context"
 	"fmt"
-	"terraform-provider-elastic-siem/internal/helpers"
-	"terraform-provider-elastic-siem/internal/provider/transferobjects"
+	"terraform-provider-elastic-siem-detection/internal/helpers"
+	"terraform-provider-elastic-siem-detection/internal/provider/transferobjects"
 
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"

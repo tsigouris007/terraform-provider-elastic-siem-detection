@@ -1,4 +1,4 @@
-resource "elastic-siem_detection_rule" "my_rules" {
+resource "elastic-siem-detection_detection_rule" "my_rules" {
   rule_content = jsonencode(
     {
       "rule_id" : "hacker_rule",

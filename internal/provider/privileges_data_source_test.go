@@ -2,11 +2,12 @@ package provider
 
 import (
 	"fmt"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"os"
-	"terraform-provider-elastic-siem/internal/fakeserver"
-	"terraform-provider-elastic-siem/internal/helpers"
+	"terraform-provider-elastic-siem-detection/internal/fakeserver"
+	"terraform-provider-elastic-siem-detection/internal/helpers"
 	"testing"
+
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 )
 
 func TestAccPrivilegesDataSource(t *testing.T) {

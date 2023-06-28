@@ -2,12 +2,13 @@ package provider
 
 import (
 	"context"
+	"terraform-provider-elastic-siem-detection/internal/helpers"
+
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/provider"
 	"github.com/hashicorp/terraform-plugin-framework/provider/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"terraform-provider-elastic-siem/internal/helpers"
 )
 
 // Ensure ElasticSiemProvider satisfies various provider interfaces.
@@ -31,7 +32,7 @@ type ScaffoldingProviderModel struct {
 }
 
 func (p *ElasticSiemProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
-	resp.TypeName = "elastic-siem"
+	resp.TypeName = "elastic-siem-detection"
 	resp.Version = p.version
 }
 

@@ -26,24 +26,24 @@ locals {
 }
 
 # resources.tf
-resource "elastic-siem_detection_rule" "my_rules" {
+resource "elastic-siem-detection_detection_rule" "my_rules" {
   for_each     = { for rule in local.detection_rules_data : rule.filename => rule }
 
   rule_content = each.value.content
 
-  depends_on = [ elastic-siem_exception_container.my_containers ]
+  depends_on = [ elastic-siem-detection_exception_container.my_containers ]
 }
 
-resource "elastic-siem_exception_container" "my_containers" {
+resource "elastic-siem-detection_exception_container" "my_containers" {
   for_each = { for container in local.exception_containers_data : container.filename => container }
 
   exception_container_content = each.value.content
 }
 
-resource "elastic-siem_exception_item" "my_items" {
+resource "elastic-siem-detection_exception_item" "my_items" {
   for_each = { for exception in local.exception_items_data : exception.filename => exception }
 
   exception_item_content = each.value.content
 
-  depends_on = [ elastic-siem_exception_container.my_containers ]
+  depends_on = [ elastic-siem-detection_exception_container.my_containers ]
 }
