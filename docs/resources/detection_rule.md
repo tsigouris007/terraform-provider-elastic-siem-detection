@@ -84,5 +84,3 @@ resource "elastic-siem-detection_detection_rule" "my_rules" {
 ### Read-Only
 
 - `id` (String) Rule identifier (in UUID format)
-
-

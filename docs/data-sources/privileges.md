@@ -18,5 +18,3 @@ Privileges data source
 ### Read-Only
 
 - `id` (String) Privileges identifier
-
-

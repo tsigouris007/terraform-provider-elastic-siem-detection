@@ -39,5 +39,3 @@ resource "elastic-siem-detection_exception_container" "my_containers" {
 ### Read-Only
 
 - `id` (String) Exception container identifier (in UUID format)
-
-

@@ -54,5 +54,3 @@ resource "elastic-siem-detection_exception_item" "my_items" {
 ### Read-Only
 
 - `id` (String) Exception item identifier (in UUID format)
-
-
