@@ -1,0 +1,42 @@
+# https://www.elastic.co/guide/en/security/current/rules-api-create.html
+
+rule_id: hacker_rule_id
+enabled: true
+description: |
+  This rule catches a bad guy
+language: kuery
+name: |
+  My Rule 1
+query: |
+  user.name : hacker
+risk_score: 21
+severity: low
+type: query
+author:
+  - You
+false_positives:
+  - A user might not be a hacker
+license: |
+  Your License
+tags:
+  - Your tag
+interval: 20m
+from: now-10m
+index:
+  - your-index-*
+threat:
+  - framework: MITRE ATT&CK
+    tactic:
+      id: TA001
+      name: Initial Access
+      reference: 'https://attack.mitre.org/tactics/TA0001/'
+    technique:
+      - id: T1133
+        name: External Remote Services
+        reference: 'https://attack.mitre.org/techniques/T1133/'
+exceptions_list:
+  - list_id: hacker_exceptions_list_id
+    id: 9cacff10-10f1-11ee-a18a-d9801694d9ea # Change with the list_id UUID
+    namespace_type: single
+    type: detection
+max_signals: 100

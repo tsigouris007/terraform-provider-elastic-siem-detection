@@ -65,3 +65,12 @@ In order to run the full suite of Acceptance tests, run `make testacc`.
 ```shell
 make testacc
 ```
+
+## Notes
+
+Not yet supported:
+- `match` clause in exception items. You can use `match_any` instead with a single item array.
+
+## Usage
+
+You can find a recommended way to use this provider under the `./usage` directory.

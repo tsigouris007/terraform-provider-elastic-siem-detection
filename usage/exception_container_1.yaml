@@ -1,0 +1,11 @@
+# https://www.elastic.co/guide/en/security/current/exceptions-api-create-container.html
+
+list_id: hacker_exceptions_list_id
+description: |
+  The hacker list container
+name: |
+  Hacker list container
+tags:
+  - Your tag
+type: detection
+namespace_type: single

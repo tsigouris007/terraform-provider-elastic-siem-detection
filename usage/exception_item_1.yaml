@@ -1,0 +1,23 @@
+# https://www.elastic.co/guide/en/security/current/exceptions-api-create-exception-item.html
+
+list_id: hacker_exceptions_list_id
+item_id: hacker_exception_item_id
+name: |
+  Hacker exception
+description: |
+  This item excepts specified hackers
+namespace_type: single
+tags:
+  - Your tag
+type: simple
+
+# These are the filtering and expiration options
+entries:
+
+  - field: user.name
+    operator: included
+    type: match_any
+    value: 
+      - familiarhacker
+
+expire_time: "2024-01-01T21:00:00.000Z"
