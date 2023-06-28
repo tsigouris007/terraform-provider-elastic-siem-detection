@@ -143,13 +143,13 @@ func (svr *Fakeserver) handleAPIObject(w http.ResponseWriter, r *http.Request) {
 		if svr.debug {
 			log.Printf("fakeserver.go: App request")
 		}
-		id = "generatedTestID"
+		id = "myTestID"
 		obj = svr.objects[id]
 	} else if path == "/api/exception_lists" && (r.Method == "POST" || r.Method == "DELETE") {
 		if svr.debug {
 			log.Printf("fakeserver.go: App request")
 		}
-		id = "generatedTestID"
+		id = "myTestID"
 	} else if path == "/api/object_list" && r.Method == "GET" {
 		/* Provide a URL similar to /api/objects that will also show the number of results
 		   as if a search was performed (which just returns all objects */
@@ -191,6 +191,7 @@ func (svr *Fakeserver) handleAPIObject(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
+
 	/* if data was sent, parse the data */
 	if string(b) != "" {
 		if svr.debug {

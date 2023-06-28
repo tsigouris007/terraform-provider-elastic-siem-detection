@@ -1,4 +1,3 @@
-## 0.0.6 (01 JUNE 2023)
+## 1.0.0
 
-FIXES:
-- Issue resolved when updating a detection rules having a 'rule_id' present
+- Initial provider

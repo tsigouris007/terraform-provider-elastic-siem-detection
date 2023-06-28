@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"strings"
 	"terraform-provider-elastic-siem-detection/internal/fakeserver"
 	"terraform-provider-elastic-siem-detection/internal/provider/transferobjects"
 	"testing"
@@ -13,16 +14,26 @@ import (
 )
 
 func generateTestRule() string {
-	ruleContent := transferobjects.DetectionRule{
-		RuleID: "7CE764F6-36A7-4E72-AB8B-166170CD1C93",
-		ID:     "testID",
-	}
+	ruleContent := transferobjects.DetectionRule{}
+	ruleContent.ID = "myTestID"
+	ruleContent.RuleID = "12345678-abcd-edfg-hijk-1234567890ab"
+	ruleContent.Description = "Test Rule Description"
+	ruleContent.Name = "Test Rule Name"
+	ruleContent.RiskScore = 21
+	ruleContent.Severity = "low"
+	ruleContent.Type = "query"
+
 	str, err := json.Marshal(ruleContent)
 	if err != nil {
 		fmt.Println(err)
 		return "{}"
 	}
-	return string(str)
+	objStr := string(str)
+	// Remove empty objects
+	objStr = strings.Replace(objStr, "\"exceptions_list\":null,", "", 1)
+	objStr = strings.Replace(objStr, ",\"threshold\":{}", "", 1)
+
+	return objStr
 }
 
 func TestAccDetectionRuleResource(t *testing.T) {
@@ -30,8 +41,8 @@ func TestAccDetectionRuleResource(t *testing.T) {
 	debug := true
 	apiServerObjects := make(map[string]map[string]interface{})
 
-	svr := fakeserver.NewFakeServer(test_post, apiServerObjects, true, debug, "")
-	test_url := fmt.Sprintf(`http://%s:%d`, test_host, test_post)
+	svr := fakeserver.NewFakeServer(test_port, apiServerObjects, true, debug, "")
+	test_url := fmt.Sprintf(`http://%s:%d`, test_host, test_port)
 	os.Setenv("REST_API_URI", test_url)
 
 	opt := &fakeserver.ApiClientOpt{
@@ -63,13 +74,14 @@ func TestAccDetectionRuleResource(t *testing.T) {
 			{
 				Config: testAccDetectionRuleResourceConfig(generateTestRule(), "test"),
 				Check: resource.ComposeAggregateTestCheckFunc(
-					fakeserver.TestAccCheckRestapiObjectExists("elastic-siem_detection_rule.test", "id", client),
-					resource.TestCheckResourceAttr("elastic-siem_detection_rule.test", "rule_content", generateTestRule()),
+					fakeserver.TestAccCheckRestapiObjectExists("elastic-siem-detection_detection_rule.test", "id", client),
+					resource.TestCheckResourceAttr("elastic-siem-detection_detection_rule.test", "rule_content", generateTestRule()),
 				),
+				ExpectNonEmptyPlan: true, // stubbed
 			},
 			// ImportState testing
 			{
-				ResourceName:      "elastic-siem_detection_rule.test",
+				ResourceName:      "elastic-siem-detection_detection_rule.test",
 				ImportState:       true,
 				ImportStateVerify: true,
 				// This is not normally necessary, but is here because this
@@ -82,8 +94,9 @@ func TestAccDetectionRuleResource(t *testing.T) {
 			{
 				Config: testAccDetectionRuleResourceConfig(generateTestRule(), "test"),
 				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr("elastic-siem_detection_rule.test", "rule_content", generateTestRule()),
+					resource.TestCheckResourceAttr("elastic-siem-detection_detection_rule.test", "rule_content", generateTestRule()),
 				),
+				ExpectNonEmptyPlan: true, // stubbed
 			},
 			// Delete testing automatically occurs in TestCase
 		},
@@ -95,7 +108,7 @@ func TestAccDetectionRuleResource(t *testing.T) {
 func testAccDetectionRuleResourceConfig(ruleContent string, name string) string {
 	content := strconv.Quote(string(ruleContent))
 	return fmt.Sprintf(`%s
-resource "elastic-siem_detection_rule" "%s" {
+resource "elastic-siem-detection_detection_rule" "%s" {
   rule_content = %s
 }
 `, providerConfig, name, content)

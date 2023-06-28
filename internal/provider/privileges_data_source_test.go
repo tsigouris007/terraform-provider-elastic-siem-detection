@@ -14,8 +14,8 @@ func TestAccPrivilegesDataSource(t *testing.T) {
 	debug := true
 	apiServerObjects := make(map[string]map[string]interface{})
 
-	svr := fakeserver.NewFakeServer(test_post, apiServerObjects, true, debug, "")
-	test_url := fmt.Sprintf(`http://%s:%d`, test_host, test_post)
+	svr := fakeserver.NewFakeServer(test_port, apiServerObjects, true, debug, "")
+	test_url := fmt.Sprintf(`http://%s:%d`, test_host, test_port)
 	os.Setenv("REST_API_URI", test_url)
 
 	opt := &fakeserver.ApiClientOpt{
@@ -105,7 +105,7 @@ func TestAccPrivilegesDataSource(t *testing.T) {
 			{
 				Config: testAccPrivilegesDataSourceConfig("test"),
 				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr("data.elastic-siem_privileges.test", "id", helpers.Sha256String("elastic")),
+					resource.TestCheckResourceAttr("data.elastic-siem-detection_privileges.test", "id", helpers.Sha256String("elastic")),
 				),
 			},
 		},
@@ -114,7 +114,7 @@ func TestAccPrivilegesDataSource(t *testing.T) {
 
 func testAccPrivilegesDataSourceConfig(name string) string {
 	return fmt.Sprintf(`%s
-data "elastic-siem_privileges" "%s" {
+data "elastic-siem-detection_privileges" "%s" {
 }
 `, providerConfig, name)
 }

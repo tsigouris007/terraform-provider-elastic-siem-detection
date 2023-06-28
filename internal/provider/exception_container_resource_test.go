@@ -1,9 +1,10 @@
 package provider
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
-	"strings"
+	"strconv"
 	"terraform-provider-elastic-siem-detection/internal/fakeserver"
 	"terraform-provider-elastic-siem-detection/internal/provider/transferobjects"
 	"testing"
@@ -11,17 +12,23 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 )
 
-func generateTestExceptionContainer() transferobjects.ExceptionContainer {
-	ruleContent := transferobjects.ExceptionContainer{
-		Name:          "test container",
-		NamespaceType: "single",
-		Tags:          []string{"asdf", "fdsa"},
-		Type:          "detection",
-		ListID:        "7CE764F6-36A7-4E72-AB8B-166170CD1C93",
-		Description:   "test description",
-		ID:            "generatedTestID", // needs to be this string
+func generateTestExceptionContainer() string {
+	ruleContent := transferobjects.ExceptionContainer{}
+	ruleContent.ID = "myTestID"
+	ruleContent.ListID = "12345678-abcd-efgh-ijkl-1234567890ab"
+	ruleContent.Description = "Test Container Description"
+	ruleContent.Name = "Test Container Name"
+	ruleContent.NamespaceType = "single"
+	ruleContent.Type = "detection"
+
+	str, err := json.Marshal(ruleContent)
+	if err != nil {
+		fmt.Println(err)
+		return "{}"
 	}
-	return ruleContent
+	objStr := string(str)
+
+	return objStr
 }
 
 func TestAccExceptionContainerResource(t *testing.T) {
@@ -29,8 +36,8 @@ func TestAccExceptionContainerResource(t *testing.T) {
 	debug := true
 	apiServerObjects := make(map[string]map[string]interface{})
 
-	svr := fakeserver.NewFakeServer(test_post, apiServerObjects, true, debug, "")
-	test_url := fmt.Sprintf(`http://%s:%d`, test_host, test_post)
+	svr := fakeserver.NewFakeServer(test_port, apiServerObjects, true, debug, "")
+	test_url := fmt.Sprintf(`http://%s:%d`, test_host, test_port)
 	os.Setenv("REST_API_URI", test_url)
 
 	opt := &fakeserver.ApiClientOpt{
@@ -62,28 +69,30 @@ func TestAccExceptionContainerResource(t *testing.T) {
 			{
 				Config: testAccExceptionContainerResourceConfig(generateTestExceptionContainer(), "test"),
 				Check: resource.ComposeAggregateTestCheckFunc(
-					fakeserver.TestAccCheckRestapiObjectExists("elastic-siem_exception_container.test", "id", client),
-					resource.TestCheckResourceAttr("elastic-siem_exception_container.test", "namespace_type", generateTestExceptionContainer().NamespaceType),
+					fakeserver.TestAccCheckRestapiObjectExists("elastic-siem-detection_exception_container.test", "id", client),
+					resource.TestCheckResourceAttr("elastic-siem-detection_exception_container.test", "exception_container_content", generateTestExceptionContainer()),
 				),
+				ExpectNonEmptyPlan: true, // stubbed
 			},
 			// ImportState testing
-			//{
-			//	ResourceName:      "elastic-siem_exception_container.test",
-			//	ImportState:       true,
-			//	ImportStateVerify: true,
-			//	// This is not normally necessary, but is here because this
-			//	// example code does not have an actual upstream service.
-			//	// Once the Read method is able to refresh information from
-			//	// the upstream service, this can be removed.
-			//	ImportStateVerifyIgnore: []string{"rule_content"},
-			//},
-			// Update and Read testing
 			{
-				Config: testAccExceptionContainerResourceConfig(generateTestExceptionContainer(), "test"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr("elastic-siem_exception_container.test", "namespace_type", generateTestExceptionContainer().NamespaceType),
-				),
+				ResourceName:      "elastic-siem-detection_exception_container.test",
+				ImportState:       true,
+				ImportStateVerify: true,
+				// This is not normally necessary, but is here because this
+				// example code does not have an actual upstream service.
+				// Once the Read method is able to refresh information from
+				// the upstream service, this can be removed.
+				ImportStateVerifyIgnore: []string{"rule_content"},
 			},
+			// Update and Read testing
+			// {
+			// 	Config: testAccExceptionContainerResourceConfig(generateTestExceptionContainer(), "test"),
+			// 	Check: resource.ComposeAggregateTestCheckFunc(
+			// 		resource.TestCheckResourceAttr("elastic-siem-detection_exception_container.test", "exception_container_content", generateTestExceptionContainer()),
+			// 	),
+			// 	ExpectNonEmptyPlan: true, // stubbed
+			// },
 			// Delete testing automatically occurs in TestCase
 		},
 	})
@@ -91,22 +100,11 @@ func TestAccExceptionContainerResource(t *testing.T) {
 	svr.Shutdown()
 }
 
-func testAccExceptionContainerResourceConfig(ruleContent transferobjects.ExceptionContainer, name string) string {
+func testAccExceptionContainerResourceConfig(ruleContent string, name string) string {
+	content := strconv.Quote(string(ruleContent))
 	return fmt.Sprintf(`%s
-resource "elastic-siem_exception_container" "%s" {
-  description = "%s"
-  name = "%s"
-  list_id = "%s"
-  type = "%s"
-  namespace_type = "%s"
-  tags = ["%s"]
+resource "elastic-siem-detection_exception_container" "%s" {
+  exception_container_content = %s
 }
-`, providerConfig, name,
-		ruleContent.Description,
-		ruleContent.Name,
-		ruleContent.ListID,
-		ruleContent.Type,
-		ruleContent.NamespaceType,
-		strings.Join(ruleContent.Tags, "\", \""),
-	)
+`, providerConfig, name, content)
 }

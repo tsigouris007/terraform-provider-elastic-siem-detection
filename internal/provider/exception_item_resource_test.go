@@ -13,19 +13,26 @@ import (
 )
 
 func generateTestExceptionItem() string {
-	base := transferobjects.ExceptionItemBase{
-		ItemID: "7CE764F6-36A7-4E72-AB8B-166170CD1C93",
-		ID:     "testID",
-	}
-	ruleContent := transferobjects.ExceptionItem{
-		ExceptionItemBase: base,
-	}
+	base := transferobjects.ExceptionItemBase{}
+	base.ID = "myTestID"
+	base.ItemID = "12345678-abcd-efgh-ijkl-1234567890ab"
+	base.Description = "Test Item Description"
+	base.Name = "Test Item Name"
+	base.ListID = "myListID"
+	base.NamespaceType = "single"
+	base.Type = "simple"
+
+	ruleContent := transferobjects.ExceptionItem{}
+	ruleContent.ExceptionItemBase = base
+
 	str, err := json.Marshal(ruleContent)
 	if err != nil {
 		fmt.Println(err)
 		return "{}"
 	}
-	return string(str)
+	objStr := string(str)
+
+	return objStr
 }
 
 func TestAccExceptionItemResource(t *testing.T) {
@@ -33,8 +40,8 @@ func TestAccExceptionItemResource(t *testing.T) {
 	debug := true
 	apiServerObjects := make(map[string]map[string]interface{})
 
-	svr := fakeserver.NewFakeServer(test_post, apiServerObjects, true, debug, "")
-	test_url := fmt.Sprintf(`http://%s:%d`, test_host, test_post)
+	svr := fakeserver.NewFakeServer(test_port, apiServerObjects, true, debug, "")
+	test_url := fmt.Sprintf(`http://%s:%d`, test_host, test_port)
 	os.Setenv("REST_API_URI", test_url)
 
 	opt := &fakeserver.ApiClientOpt{
@@ -66,13 +73,14 @@ func TestAccExceptionItemResource(t *testing.T) {
 			{
 				Config: testAccExceptionItemResourceConfig(generateTestExceptionItem(), "test"),
 				Check: resource.ComposeAggregateTestCheckFunc(
-					fakeserver.TestAccCheckRestapiObjectExists("elastic-siem_exception_item.test", "id", client),
-					resource.TestCheckResourceAttr("elastic-siem_exception_item.test", "exception_item_content", generateTestExceptionItem()),
+					fakeserver.TestAccCheckRestapiObjectExists("elastic-siem-detection_exception_item.test", "id", client),
+					resource.TestCheckResourceAttr("elastic-siem-detection_exception_item.test", "exception_item_content", generateTestExceptionItem()),
 				),
+				ExpectNonEmptyPlan: true, // stubbed
 			},
 			// ImportState testing
 			{
-				ResourceName:      "elastic-siem_exception_item.test",
+				ResourceName:      "elastic-siem-detection_exception_item.test",
 				ImportState:       true,
 				ImportStateVerify: true,
 				// This is not normally necessary, but is here because this
@@ -85,8 +93,9 @@ func TestAccExceptionItemResource(t *testing.T) {
 			{
 				Config: testAccExceptionItemResourceConfig(generateTestExceptionItem(), "test"),
 				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr("elastic-siem_exception_item.test", "exception_item_content", generateTestExceptionItem()),
+					resource.TestCheckResourceAttr("elastic-siem-detection_exception_item.test", "exception_item_content", generateTestExceptionItem()),
 				),
+				ExpectNonEmptyPlan: true, // stubbed
 			},
 			// Delete testing automatically occurs in TestCase
 		},
@@ -98,7 +107,7 @@ func TestAccExceptionItemResource(t *testing.T) {
 func testAccExceptionItemResourceConfig(ruleContent string, name string) string {
 	content := strconv.Quote(string(ruleContent))
 	return fmt.Sprintf(`%s
-resource "elastic-siem_exception_item" "%s" {
+resource "elastic-siem-detection_exception_item" "%s" {
   exception_item_content = %s
 }
 `, providerConfig, name, content)

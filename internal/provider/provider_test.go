@@ -14,7 +14,7 @@ import (
 // reattach.
 const (
 	test_host = "127.0.0.1"
-	test_post = 9999
+	test_port = 9999
 )
 
 var (
@@ -26,7 +26,7 @@ provider "elastic-siem-detection" {
   port     = %d
   tls      = false
 }
-`, test_host, test_post)
+`, test_host, test_port)
 )
 
 var testAccProtoV6ProviderFactories = map[string]func() (tfprotov6.ProviderServer, error){
