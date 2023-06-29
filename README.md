@@ -74,3 +74,9 @@ Not yet supported:
 ## Usage
 
 You can find a recommended way to use this provider under the `./usage` directory.
+
+## Credits
+
+The original idea was taken from [https://github.com/fabiogermann/terraform-provider-elastic-siem](https://github.com/fabiogermann/terraform-provider-elastic-siem)
+
+Special thanks to [https://github.com/gpapakyriakopoulos](https://github.com/gpapakyriakopoulos) for the debugging sessions and emotional support.
