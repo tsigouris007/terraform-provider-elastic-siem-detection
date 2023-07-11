@@ -68,7 +68,9 @@ make testacc
 
 ## Notes
 
-Not yet supported:
+**Update**
+
+Now supported:
 - `match` clause in exception items. You can use `match_any` instead with a single item array.
 - `wildcard` clause in exception items. There is no alternative here. To be added in future releases.
 
