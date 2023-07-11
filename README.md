@@ -71,8 +71,8 @@ make testacc
 **Update**
 
 Now supported:
-- `match` clause in exception items. You can use `match_any` instead with a single item array.
-- `wildcard` clause in exception items. There is no alternative here. To be added in future releases.
+- `match` and `match_any` clause in exception items.
+- `wildcard` clause in exception items.
 
 ## Usage
 
