@@ -10,15 +10,15 @@ type ThreatItem struct {
 		Reference string `json:"reference,omitempty"`
 	} `json:"tactic,omitempty"`
 	Technique []struct {
-		ID        string `json:"id,omitempty"`
-		Name      string `json:"name,omitempty"`
-		Reference string `json:"reference,omitempty"`
+		ID           string `json:"id,omitempty"`
+		Name         string `json:"name,omitempty"`
+		Reference    string `json:"reference,omitempty"`
+		Subtechnique []struct {
+			ID        string `json:"id,omitempty"`
+			Name      string `json:"name,omitempty"`
+			Reference string `json:"reference,omitempty"`
+		} `json:"subtechnique,omitempty"`
 	} `json:"technique,omitempty"`
-	Subtechnique []struct {
-		ID        string `json:"id,omitempty"`
-		Name      string `json:"name,omitempty"`
-		Reference string `json:"reference,omitempty"`
-	} `json:"subtechnique,omitempty"`
 }
 
 type ThreatMapping struct {
