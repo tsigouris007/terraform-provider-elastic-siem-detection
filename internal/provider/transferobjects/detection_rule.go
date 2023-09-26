@@ -30,12 +30,12 @@ type ThreatMapping struct {
 }
 
 type RuleThreshold struct {
-	Field       []string `json:"field,omitempty"`
-	Value       int      `json:"value,omitempty"`
 	Cardinality []struct {
 		Field string `json:"field,omitempty"`
 		Value int    `json:"value,omitempty"`
 	} `json:"cardinality,omitempty"`
+	Field []string `json:"field,omitempty"`
+	Value int      `json:"value,omitempty"`
 }
 
 type ExecutionHistoryItem struct {
