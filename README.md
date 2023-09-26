@@ -22,6 +22,10 @@ go install
 
 Follow the instructions here: https://developer.hashicorp.com/terraform/tutorials/providers/provider-release-publish
 
+## The published Provider
+
+The provider can be found here: https://registry.terraform.io/providers/tsigouris007/elastic-siem-detection/latest
+
 ## Adding Dependencies
 
 This provider uses [Go modules](https://github.com/golang/go/wiki/Modules).
