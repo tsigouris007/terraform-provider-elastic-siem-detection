@@ -18,6 +18,10 @@ This repository is a provider for [Elastic SIEM](https://www.elastic.co/security
 go install
 ```
 
+## Publishing The Provider
+
+Follow the instructions here: https://developer.hashicorp.com/terraform/tutorials/providers/provider-release-publish
+
 ## Adding Dependencies
 
 This provider uses [Go modules](https://github.com/golang/go/wiki/Modules).
