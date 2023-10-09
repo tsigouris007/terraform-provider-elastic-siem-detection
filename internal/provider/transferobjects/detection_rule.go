@@ -66,26 +66,27 @@ type SeverityMapping struct {
 }
 
 type ActionItem struct {
-	Group  string `json:"group,omitempty"`
-	ID     string `json:"id,omitempty"`
-	Params struct {
-		Message     string `json:"message,omitempty"`
-		To          string `json:"to,omitempty"`
-		Cc          string `json:"cc,omitempty"`
-		Bcc         string `json:"bcc,omitempty"`
-		Subject     string `json:"subject,omitempty"`
-		Body        string `json:"body,omitempty"`
-		Severity    string `json:"severity,omitempty"`
-		EventAction string `json:"eventAction,omitempty"`
-		DedupKey    string `json:"dedupKey,omitempty"`
-		Timestamp   string `json:"timestamp,omitempty"`
-		Component   string `json:"component,omitempty"`
-		Group       string `json:"group,omitempty"`
-		Source      string `json:"source,omitempty"`
-		Summary     string `json:"summary,omitempty"`
-		Class       string `json:"class,omitempty"`
-	} `json:"params,omitempty"`
 	ActionTypeID string `json:"action_type_id,omitempty"`
+	Group        string `json:"group,omitempty"`
+	ID           string `json:"id,omitempty"`
+	Params       struct {
+		Documents   []string `json:"documents,omitempty"`
+		Message     string   `json:"message,omitempty"`
+		To          string   `json:"to,omitempty"`
+		Cc          string   `json:"cc,omitempty"`
+		Bcc         string   `json:"bcc,omitempty"`
+		Subject     string   `json:"subject,omitempty"`
+		Body        string   `json:"body,omitempty"`
+		Severity    string   `json:"severity,omitempty"`
+		EventAction string   `json:"eventAction,omitempty"`
+		DedupKey    string   `json:"dedupKey,omitempty"`
+		Timestamp   string   `json:"timestamp,omitempty"`
+		Component   string   `json:"component,omitempty"`
+		Group       string   `json:"group,omitempty"`
+		Source      string   `json:"source,omitempty"`
+		Summary     string   `json:"summary,omitempty"`
+		Class       string   `json:"class,omitempty"`
+	} `json:"params,omitempty"`
 }
 
 type MetaItem struct {
