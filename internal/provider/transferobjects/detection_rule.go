@@ -157,6 +157,8 @@ type DetectionRule struct {
 	TiebreakerField     string              `json:"tiebreaker_field,omitempty"`
 	TimestampField      string              `json:"timestamp_field,omitempty"`
 	TimeStampOverride   string              `json:"timestamp_override,omitempty"`
+	TimelineID          string              `json:"timeline_id,omitempty"`
+	TimelineTitle       string              `json:"timeline_title,omitempty"`
 	To                  string              `json:"to,omitempty"`
 	Type                string              `json:"type,omitempty"`
 	UpdatedBy           string              `json:"updated_by,omitempty"`

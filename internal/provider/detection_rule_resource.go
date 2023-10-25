@@ -168,6 +168,13 @@ func (r *DetectionRuleResource) Read(ctx context.Context, req resource.ReadReque
 		itemsToRemove = append(itemsToRemove, "exceptions_list")
 	}
 
+	// Both Timeline ID + Title attributes need to be specified
+	if (len(response.TimelineID) > 0 && len(response.TimelineTitle) == 0) ||
+		(len(response.TimelineTitle) > 0 && len(response.TimelineID) == 0) {
+		itemsToRemove = append(itemsToRemove, "timeline_id")
+		itemsToRemove = append(itemsToRemove, "timeline_title")
+	}
+
 	// Update the current state in case of diffs
 	jsonStr, err := helpers.JSONfromObject(response.DetectionRule, itemsToRemove)
 	if err != nil {
@@ -209,6 +216,13 @@ func (r *DetectionRuleResource) Update(ctx context.Context, req resource.UpdateR
 	// If exception_list: [] remove it
 	if len(body.ExceptionsList) == 0 {
 		itemsToRemove = append(itemsToRemove, "exceptions_list")
+	}
+
+	// Both Timeline ID + Title attributes need to be specified
+	if (len(body.TimelineID) > 0 && len(body.TimelineTitle) == 0) ||
+		(len(body.TimelineTitle) > 0 && len(body.TimelineID) == 0) {
+		itemsToRemove = append(itemsToRemove, "timeline_id")
+		itemsToRemove = append(itemsToRemove, "timeline_title")
 	}
 
 	if !helpers.CheckIfKeyExists(body, "rule_id") {
