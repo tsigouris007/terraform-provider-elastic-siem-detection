@@ -141,8 +141,8 @@ type DetectionRule struct {
 	RiskScoreMapping    []RiskScoreMapping  `json:"risk_score_mapping,omitempty"`
 	RuleID              string              `json:"rule_id,omitempty"`
 	RuleNameOverride    string              `json:"rule_name_override,omitempty"`
-	SaveId              string              `json:"setup,omitempty"`
-	Setup               string              `json:"saved_id,omitempty"`
+	SaveId              string              `json:"saved_id,omitempty"`
+	Setup               string              `json:"setup,omitempty"`
 	Severity            string              `json:"severity,omitempty"`
 	SeverityMapping     []SeverityMapping   `json:"severity_mapping,omitempty"`
 	Tags                []string            `json:"tags,omitempty"`
