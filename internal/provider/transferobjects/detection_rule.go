@@ -151,6 +151,7 @@ type DetectionRule struct {
 	ThreatIndex         []string            `json:"threat_index,omitempty"`
 	ThreatIndicatorPath string              `json:"threat_indicator_path,omitempty"`
 	ThreatQuery         string              `json:"threat_query,omitempty"`
+	ThreatLanguage      string              `json:"threat_language,omitempty"`
 	ThreatMapping       []ThreatMapping     `json:"threat_mapping,omitempty"`
 	Threshold           RuleThreshold       `json:"threshold,omitempty"`
 	Throttle            string              `json:"throttle,omitempty"`
