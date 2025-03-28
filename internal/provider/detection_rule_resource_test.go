@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 	"terraform-provider-elastic-siem-detection/internal/fakeserver"
@@ -34,6 +35,11 @@ func generateTestRule() string {
 	objStr = strings.Replace(objStr, ",\"threshold\":{}", "", 1)
 
 	return objStr
+}
+
+func generateInvalidTestRule() string {
+	str, _ := json.Marshal("{invalid_json}")
+	return string(str)
 }
 
 func TestAccDetectionRuleResource(t *testing.T) {
@@ -78,6 +84,11 @@ func TestAccDetectionRuleResource(t *testing.T) {
 					resource.TestCheckResourceAttr("elastic-siem-detection_detection_rule.test", "rule_content", generateTestRule()),
 				),
 				ExpectNonEmptyPlan: true, // stubbed
+			},
+			// Invalid rule_content
+			{
+				Config:      testAccDetectionRuleResourceConfig(generateInvalidTestRule(), "test"),
+				ExpectError: regexp.MustCompile(`Parser Error`),
 			},
 			// ImportState testing
 			{
