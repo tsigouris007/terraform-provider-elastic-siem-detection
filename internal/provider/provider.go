@@ -52,12 +52,12 @@ func (p *ElasticSiemProvider) Schema(ctx context.Context, req provider.SchemaReq
 				Optional:            true,
 			},
 			"user": schema.StringAttribute{
-				MarkdownDescription: "The username to authenticate to Kiaba and interact with the SIEM",
+				MarkdownDescription: "The username to authenticate to Kibana and interact with the SIEM",
 				Required:            true,
 				Sensitive:           true,
 			},
 			"password": schema.StringAttribute{
-				MarkdownDescription: "The password to authenticate to Kiaba and interact with the SIEM",
+				MarkdownDescription: "The password to authenticate to Kibana and interact with the SIEM",
 				Required:            true,
 				Sensitive:           true,
 			},

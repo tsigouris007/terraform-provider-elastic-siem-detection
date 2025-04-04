@@ -27,8 +27,8 @@ provider "elastic-siem-detection" {
 ### Required
 
 - `hostname` (String) The Kibana host name
-- `password` (String, Sensitive) The password to authenticate to Kiaba and interact with the SIEM
-- `user` (String, Sensitive) The username to authenticate to Kiaba and interact with the SIEM
+- `password` (String, Sensitive) The password to authenticate to Kibana and interact with the SIEM
+- `user` (String, Sensitive) The username to authenticate to Kibana and interact with the SIEM
 
 ### Optional
 
