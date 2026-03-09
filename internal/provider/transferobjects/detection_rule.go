@@ -65,28 +65,19 @@ type SeverityMapping struct {
 	Severity string `json:"severity,omitempty"`
 }
 
+type ActionFrequency struct {
+	Summary    *bool   `json:"summary"`
+	NotifyWhen string  `json:"notifyWhen,omitempty"`
+	Throttle   *string `json:"throttle"`
+}
+
 type ActionItem struct {
-	ActionTypeID string `json:"action_type_id,omitempty"`
-	Group        string `json:"group,omitempty"`
-	ID           string `json:"id,omitempty"`
-	Params       struct {
-		Documents   []string `json:"documents,omitempty"`
-		Message     string   `json:"message,omitempty"`
-		To          string   `json:"to,omitempty"`
-		Cc          string   `json:"cc,omitempty"`
-		Bcc         string   `json:"bcc,omitempty"`
-		Subject     string   `json:"subject,omitempty"`
-		Body        string   `json:"body,omitempty"`
-		Severity    string   `json:"severity,omitempty"`
-		EventAction string   `json:"eventAction,omitempty"`
-		DedupKey    string   `json:"dedupKey,omitempty"`
-		Timestamp   string   `json:"timestamp,omitempty"`
-		Component   string   `json:"component,omitempty"`
-		Group       string   `json:"group,omitempty"`
-		Source      string   `json:"source,omitempty"`
-		Summary     string   `json:"summary,omitempty"`
-		Class       string   `json:"class,omitempty"`
-	} `json:"params,omitempty"`
+	ActionTypeID string                 `json:"action_type_id,omitempty"`
+	Frequency    *ActionFrequency       `json:"frequency,omitempty"`
+	Group        string                 `json:"group,omitempty"`
+	ID           string                 `json:"id,omitempty"`
+	Params       map[string]interface{} `json:"params,omitempty"`
+	UUID         string                 `json:"uuid,omitempty"`
 }
 
 type MetaItem struct {
