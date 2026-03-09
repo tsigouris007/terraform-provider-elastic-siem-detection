@@ -128,9 +128,11 @@ type DetectionRule struct {
 	Interval            string              `json:"interval,omitempty"`
 	Language            string              `json:"language,omitempty"`
 	License             string              `json:"license,omitempty"`
+	HistoryWindowStart  string              `json:"history_window_start,omitempty"`
 	MachineLeanJID      []string            `json:"machine_learning_job_id,omitempty"`
 	MaxSignals          int                 `json:"max_signals,omitempty"`
 	Name                string              `json:"name,omitempty"`
+	NewTermsFields      []string            `json:"new_terms_fields,omitempty"`
 	Note                string              `json:"note,omitempty"`
 	OutputIndex         string              `json:"output_index,omitempty"`
 	Query               string              `json:"query,omitempty"`
